@@ -20,9 +20,17 @@
 #include "qdeclarativebooster.h"
 #include "mdeclarativecache.h"
 #include "connection.h"
+#include <QtGlobal>
+#include <QFileInfo>
 
-const string QDeclarativeBooster::m_socketId = "/tmp/boostd";
-const string QDeclarativeBooster::m_temporaryProcessName = "booster-d";
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#define BOOSTER_NAME "d"
+#else
+#define BOOSTER_NAME "D"
+#endif
+
+const string QDeclarativeBooster::m_socketId = "/tmp/boost" BOOSTER_NAME;
+const string QDeclarativeBooster::m_temporaryProcessName = "booster-" BOOSTER_NAME;
 
 const string & QDeclarativeBooster::socketId() const
 {
@@ -46,7 +54,7 @@ const string & QDeclarativeBooster::boosterTemporaryProcessName() const
 
 char QDeclarativeBooster::type()
 {
-    return 'd';
+    return BOOSTER_NAME[0];
 }
 
 bool QDeclarativeBooster::preload()
@@ -94,7 +102,6 @@ bool QDeclarativeBooster::receiveDataFromInvoker(int socketFd)
         return true;
     }
 }
-
 
 void QDeclarativeBooster::preinit()
 {

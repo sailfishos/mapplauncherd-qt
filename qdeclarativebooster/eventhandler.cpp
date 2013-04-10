@@ -1,5 +1,5 @@
 #include <QtConcurrentRun>
-#include <QApplication>
+#include <QCoreApplication>
 
 #include "eventhandler.h"
 #include "connection.h"
@@ -29,8 +29,8 @@ EventHandler::~EventHandler()
 void EventHandler::runEventLoop()
 {
     // Exit from event loop when invoker is ready to connect
-    connect(this, SIGNAL(connectionAccepted()), QApplication::instance(), SLOT(quit()));
-    connect(this, SIGNAL(connectionRejected()), QApplication::instance(), SLOT(quit()));
+    connect(this, SIGNAL(connectionAccepted()), QCoreApplication::instance(), SLOT(quit()));
+    connect(this, SIGNAL(connectionRejected()), QCoreApplication::instance(), SLOT(quit()));
 
     // Start another thread to listen connection from invoker
     QtConcurrent::run(this, &EventHandler::accept);
@@ -55,7 +55,7 @@ void EventHandler::runEventLoop()
     }
 
     // Run event loop so application instance can receive notifications
-    QApplication::exec();
+    QCoreApplication::exec();
 
     // Restore signal handlers to previous values
     if (handlerIsSet)
@@ -89,7 +89,7 @@ void EventHandler::hupSignalHandler(int)
 
 void EventHandler::handleSigHup()
 {
-    QApplication::quit();
+    QCoreApplication::quit();
     _exit(EXIT_SUCCESS);
 }
 

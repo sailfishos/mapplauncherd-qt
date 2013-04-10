@@ -1,5 +1,5 @@
-Name: mapplauncherd-qt4
-Summary: Application launch boosters for Qt4 
+Name: mapplauncherd-qt5
+Summary: Application launch boosters for Qt5
 Version: 1.0.0
 Release: 1
 Group: System/Daemons
@@ -10,16 +10,19 @@ Sources:
 Description: |
     Application launch boosters for Qt4
 PkgConfigBR:
-    - QtCore
-    - QtGui
-    - QtDeclarative
+    - Qt5Core
+    - Qt5Gui
+    - Qt5Concurrent
 PkgBR:
     - mapplauncherd
+Conflicts:
+# Qt4 and Qt5 boosters cannot coexist with current mapplauncherd
+    - mapplauncherd-qt4
 Builder: qmake
 Files:
-    - "%{_libdir}/applauncherd/libbooster-qt4.so"
-    - "%{_libdir}/applauncherd/libbooster-qt4-declarative.so"
-    - "%{_libdir}/libmdeclarativecache.so.*"
+    - "%{_libdir}/applauncherd/libbooster-qt5.so"
+    - "%{_libdir}/applauncherd/libbooster-qt5-declarative.so"
+    - "%{_libdir}/libmdeclarativecache5.so.*"
 
 SubPackages:
     - Name: devel
@@ -29,7 +32,7 @@ SubPackages:
          Development files for creating applications that can be launched
          using mapplauncherd.
       Files:
-        - "%{_datadir}/qt4/mkspecs/features/*.prf"
+        - "%{_datadir}/qt5/mkspecs/features/*.prf"
         - "%{_libdir}/pkgconfig/*.pc"
-        - "%{_libdir}/libmdeclarativecache.so"
-        - "%{_includedir}/mdeclarativecache/*"
+        - "%{_libdir}/libmdeclarativecache5.so"
+        - "%{_includedir}/mdeclarativecache5/"

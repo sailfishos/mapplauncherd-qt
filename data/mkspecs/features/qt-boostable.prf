@@ -2,4 +2,6 @@
 # flags to make an application usable with applauncherd.
 
 CONFIG += link_pkgconfig
-PKGCONFIG += qt-boostable
+
+equals(QT_MAJOR_VERSION, 4): PKGCONFIG += qt-boostable
+equals(QT_MAJOR_VERSION, 5): PKGCONFIG += qt5-boostable

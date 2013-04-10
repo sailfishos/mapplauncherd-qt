@@ -1,13 +1,12 @@
 TEMPLATE = lib
-TARGET = mdeclarativecache
+TARGET = mdeclarativecache5
 VERSION = 0.0.0
-
-QT += declarative
+QT += quick core-private 
 
 target.path = /usr/lib/
 
 headers.files = MDeclarativeCache mdeclarativecache.h
-headers.path = /usr/include/mdeclarativecache/
+headers.path = /usr/include/mdeclarativecache5/
 
 INSTALLS += target headers
 

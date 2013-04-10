@@ -18,9 +18,16 @@
 ****************************************************************************/
 
 #include "qtbooster.h"
+#include <QtGlobal>
 
-const string QtBooster::m_socketId = "/tmp/boostq";
-const string QtBooster::m_temporaryProcessName = "booster-q";
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#define BOOSTER_NAME "q"
+#else
+#define BOOSTER_NAME "5"
+#endif
+
+const string QtBooster::m_socketId = "/tmp/boost" BOOSTER_NAME;
+const string QtBooster::m_temporaryProcessName = "booster-" BOOSTER_NAME;
 
 const string & QtBooster::socketId() const
 {
@@ -44,7 +51,7 @@ const string & QtBooster::boosterTemporaryProcessName() const
 
 char QtBooster::type()
 {
-    return 'q';
+    return BOOSTER_NAME[0];
 }
 
 bool QtBooster::preload()

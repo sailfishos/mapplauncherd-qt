@@ -1,6 +1,8 @@
 TEMPLATE = lib
-TARGET = booster-qt
 CONFIG += plugin
+
+equals(QT_MAJOR_VERSION, 4): TARGET = booster-qt4
+equals(QT_MAJOR_VERSION, 5): TARGET = booster-qt5
 
 target.path = /usr/lib/applauncherd/
 INSTALLS += target
