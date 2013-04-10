@@ -1,0 +1,34 @@
+Name: mapplauncherd-qt4
+Summary: Application launch boosters for Qt4 
+Version: 1.0.0
+Release: 1
+Group: System/Daemons
+License: LGPLv2+
+URL: https://github.com/nemomobile/mapplauncherd-qt/
+Sources:
+    - "%{name}-%{version}.tar.bz2"
+Description: |
+    Application launch boosters for Qt4
+PkgConfigBR:
+    - QtCore
+    - QtGui
+    - QtDeclarative
+PkgBR:
+    - mapplauncherd
+Builder: qmake
+Files:
+    - "%{_libdir}/applauncherd/libbooster-qt.so"
+    - "%{_libdir}/applauncherd/libbooster-qt4-declarative.so"
+    - "%{_libdir}/libmdeclarativecache.so.*"
+
+SubPackages:
+    - Name: devel
+      Group: Development/Tools
+      Summary: Development files for launchable applications
+      Description: |
+         Development files for creating applications that can be launched
+         using mapplauncherd.
+      Files:
+        - "%{_datadir}/qt4/mkspecs/features/*.prf"
+        - "%{_libdir}/pkgconfig/*.pc"
+        - "%{_libdir}/libmdeclarativecache.so"
