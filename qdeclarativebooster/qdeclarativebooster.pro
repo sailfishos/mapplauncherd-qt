@@ -1,8 +1,10 @@
 TEMPLATE = lib
 CONFIG += plugin
-QT += concurrent
 
-equals(QT_MAJOR_VERSION, 4): TARGET = booster-qt4-declarative
+equasl(QT_MAJOR_VERSION, 4): QT += declarative
+equals(QT_MAJOR_VERSION, 5): QT += concurrent quick
+
+equals(QT_MAJOR_VERSION, 4): TARGET = booster-qt-declarative
 equals(QT_MAJOR_VERSION, 5): TARGET = booster-qt5-declarative
 
 target.path = /usr/lib/applauncherd/

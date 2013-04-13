@@ -21,11 +21,14 @@ Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  mapplauncherd
-Conflicts:   mapplauncherd-qt4
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  mapplauncherd-devel
+Conflicts:   mapplauncherd-qt
 
 %description
-Application launch boosters for Qt4
+Application launch boosters for Qt5
 
 
 %package devel

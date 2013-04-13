@@ -1,4 +1,4 @@
-Name: mapplauncherd-qt4
+Name: mapplauncherd-qt
 Summary: Application launch boosters for Qt4 
 Version: 1.0.0
 Release: 1
@@ -13,12 +13,13 @@ PkgConfigBR:
     - QtCore
     - QtGui
     - QtDeclarative
+    - x11
 PkgBR:
-    - mapplauncherd
+    - mapplauncherd-devel
 Builder: qmake
 Files:
-    - "%{_libdir}/applauncherd/libbooster-qt4.so"
-    - "%{_libdir}/applauncherd/libbooster-qt4-declarative.so"
+    - "%{_libdir}/applauncherd/libbooster-qt.so"
+    - "%{_libdir}/applauncherd/libbooster-qt-declarative.so"
     - "%{_libdir}/libmdeclarativecache.so.*"
 
 SubPackages:

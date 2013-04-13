@@ -8,16 +8,19 @@ URL: https://github.com/nemomobile/mapplauncherd-qt/
 Sources:
     - "%{name}-%{version}.tar.bz2"
 Description: |
-    Application launch boosters for Qt4
+    Application launch boosters for Qt5
 PkgConfigBR:
     - Qt5Core
     - Qt5Gui
     - Qt5Concurrent
+    - Qt5Qml
+    - Qt5Quick
+    - x11
 PkgBR:
-    - mapplauncherd
+    - mapplauncherd-devel
 Conflicts:
 # Qt4 and Qt5 boosters cannot coexist with current mapplauncherd
-    - mapplauncherd-qt4
+    - mapplauncherd-qt
 Builder: qmake
 Files:
     - "%{_libdir}/applauncherd/libbooster-qt5.so"
