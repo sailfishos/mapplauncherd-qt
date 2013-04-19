@@ -21,7 +21,7 @@ PkgBR:
 Conflicts:
 # Qt4 and Qt5 boosters cannot coexist with current mapplauncherd
     - mapplauncherd-qt
-Builder: qmake
+Builder: qmake5
 Files:
     - "%{_libdir}/applauncherd/libbooster-qt5.so"
     - "%{_libdir}/applauncherd/libbooster-qt5-declarative.so"
