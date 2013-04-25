@@ -17,15 +17,18 @@ PkgConfigBR:
     - Qt5Quick
     - x11
 PkgBR:
-    - mapplauncherd-devel
-Conflicts:
-# Qt4 and Qt5 boosters cannot coexist with current mapplauncherd
-    - mapplauncherd-qt
+    - mapplauncherd-devel >= 4.1.0
+Requires:
+    - mapplauncherd >= 4.1.0
 Builder: qmake5
 Files:
-    - "%{_libdir}/applauncherd/libbooster-qt5.so"
-    - "%{_libdir}/applauncherd/libbooster-qt5-declarative.so"
+    - "%{_libexecdir}/mapplauncherd/booster-qt5"
+    - "%{_libexecdir}/mapplauncherd/booster-qtquick2"
     - "%{_libdir}/libmdeclarativecache5.so.*"
+    - "%{_libdir}/systemd/user/booster-qt5.service"
+    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt5.service"
+    - "%{_libdir}/systemd/user/booster-qtquick2.service"
+    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qtquick2.service"
 
 SubPackages:
     - Name: devel

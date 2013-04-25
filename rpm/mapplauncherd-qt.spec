@@ -16,13 +16,14 @@ License:    LGPLv2+
 URL:        https://github.com/nemomobile/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  mapplauncherd-qt.yaml
+Requires:   mapplauncherd >= 4.1.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtDeclarative)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  mapplauncherd-devel
+BuildRequires:  mapplauncherd-devel >= 4.1.0
 
 %description
 Application launch boosters for Qt4
@@ -63,6 +64,8 @@ rm -rf %{buildroot}
 %qmake_install
 
 # >> install post
+mkdir %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants || true
+ln -s ../booster-qt4.service ../booster-qml.service %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants/
 # << install post
 
 
@@ -72,9 +75,13 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/applauncherd/libbooster-qt.so
-%{_libdir}/applauncherd/libbooster-qt-declarative.so
+%{_libexecdir}/mapplauncherd/booster-qt4
+%{_libexecdir}/mapplauncherd/booster-qml
 %{_libdir}/libmdeclarativecache.so.*
+%{_libdir}/systemd/user/booster-qt4.service
+%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt4.service
+%{_libdir}/systemd/user/booster-qml.service
+%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qml.service
 # >> files
 # << files
 

@@ -1,13 +1,12 @@
-TEMPLATE = lib
-CONFIG += plugin
+TEMPLATE = app
 
 equasl(QT_MAJOR_VERSION, 4): QT += declarative
 equals(QT_MAJOR_VERSION, 5): QT += concurrent quick
 
-equals(QT_MAJOR_VERSION, 4): TARGET = booster-qt-declarative
-equals(QT_MAJOR_VERSION, 5): TARGET = booster-qt5-declarative
+equals(QT_MAJOR_VERSION, 4): TARGET = booster-qml
+equals(QT_MAJOR_VERSION, 5): TARGET = booster-qtquick2
 
-target.path = /usr/lib/applauncherd/
+target.path = /usr/libexec/mapplauncherd/
 INSTALLS += target
 
 # pkgconfig?
@@ -24,7 +23,6 @@ equals(QT_MAJOR_VERSION, 5) {
 }
 
 SOURCES += eventhandler.cpp \
-    pluginfactory.cpp \
     qdeclarativebooster.cpp
 
 HEADERS += qdeclarativebooster.h \

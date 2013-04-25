@@ -15,12 +15,18 @@ PkgConfigBR:
     - QtDeclarative
     - x11
 PkgBR:
-    - mapplauncherd-devel
+    - mapplauncherd-devel >= 4.1.0
+Requires:
+    - mapplauncherd >= 4.1.0
 Builder: qmake
 Files:
-    - "%{_libdir}/applauncherd/libbooster-qt.so"
-    - "%{_libdir}/applauncherd/libbooster-qt-declarative.so"
+    - "%{_libexecdir}/mapplauncherd/booster-qt4"
+    - "%{_libexecdir}/mapplauncherd/booster-qml"
     - "%{_libdir}/libmdeclarativecache.so.*"
+    - "%{_libdir}/systemd/user/booster-qt4.service"
+    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt4.service"
+    - "%{_libdir}/systemd/user/booster-qml.service"
+    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qml.service"
 
 SubPackages:
     - Name: devel

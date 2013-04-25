@@ -18,43 +18,30 @@
 ****************************************************************************/
 
 #include "qtbooster.h"
+#include "daemon.h"
 #include <QtGlobal>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#define BOOSTER_NAME "q"
+const string QtBooster::m_boosterType = "qt4";
 #else
-#define BOOSTER_NAME "5"
+const string QtBooster::m_boosterType = "qt5";
 #endif
 
-const string QtBooster::m_socketId = "/tmp/boost" BOOSTER_NAME;
-const string QtBooster::m_temporaryProcessName = "booster-" BOOSTER_NAME;
-
-const string & QtBooster::socketId() const
+const string & QtBooster::boosterType() const
 {
-    return m_socketId;
-}
-
-const string & QtBooster::socketName()
-{
-    return m_socketId;
-}
-
-const string & QtBooster::temporaryProcessName()
-{
-    return m_temporaryProcessName;
-}
-
-const string & QtBooster::boosterTemporaryProcessName() const
-{
-    return temporaryProcessName();
-}
-
-char QtBooster::type()
-{
-    return BOOSTER_NAME[0];
+    return m_boosterType;
 }
 
 bool QtBooster::preload()
 {
     return true;
 }
+
+int main(int argc, char **argv)
+{
+    QtBooster *booster = new QtBooster;
+
+    Daemon d(argc, argv);
+    d.run(booster);
+}
+

@@ -36,35 +36,13 @@ public:
     //! Destructor.
     virtual ~QtBooster() {};
 
-    /*!
-     * \brief Return the socket name common to all QtBooster objects.
-     * \return Path to the socket file.
-     */
-    static const string & socketName();
-
-    //! Return the process name to be used when booster is not
-    //! yet transformed into a running application
-    static const string & temporaryProcessName();
-
     //! \reimp
-    virtual const string & boosterTemporaryProcessName() const;
-
-    //! \reimp
-    virtual char boosterType() const { return type(); }
-
-    /*!
-     * \brief Return a unique character ('q') represtenting the type of QtBoosters.
-     * \return Type character.
-     */
-    static char type();
+    virtual const string & boosterType() const;
 
 protected:
 
     //! \reimp
     virtual bool preload();
-
-    //! \reimp
-    virtual const string & socketId() const;
 
 private:
 
@@ -74,11 +52,7 @@ private:
     //! Disable assignment operator
     QtBooster & operator= (const QtBooster & r);
 
-    static const string m_socketId;
-
-    //! Process name to be used when booster is not
-    //! yet transformed into a running application
-    static const string m_temporaryProcessName;
+    static const string m_boosterType;
 
 #ifdef UNIT_TEST
     friend class Ut_QtBooster;

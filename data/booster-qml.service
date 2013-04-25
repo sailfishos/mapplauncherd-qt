@@ -1,0 +1,8 @@
+[Unit]
+Description=Application launch booster for Qt4/QML
+After=xorg.target
+Requires=dbus.socket xorg.target
+
+[Service]
+Type=notify
+ExecStart=/usr/libexec/mapplauncherd/booster-qml --systemd

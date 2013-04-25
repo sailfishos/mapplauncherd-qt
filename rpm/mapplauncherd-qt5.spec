@@ -16,6 +16,7 @@ License:    LGPLv2+
 URL:        https://github.com/nemomobile/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  mapplauncherd-qt5.yaml
+Requires:   mapplauncherd >= 4.1.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(Qt5Core)
@@ -24,8 +25,7 @@ BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  mapplauncherd-devel
-Conflicts:   mapplauncherd-qt
+BuildRequires:  mapplauncherd-devel >= 4.1.0
 
 %description
 Application launch boosters for Qt5
@@ -65,6 +65,8 @@ rm -rf %{buildroot}
 %qmake_install
 
 # >> install post
+mkdir %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants || true
+ln -s ../booster-qt5.service ../booster-qtquick2.service %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants/
 # << install post
 
 %post -p /sbin/ldconfig
@@ -73,9 +75,13 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/applauncherd/libbooster-qt5.so
-%{_libdir}/applauncherd/libbooster-qt5-declarative.so
+%{_libexecdir}/mapplauncherd/booster-qt5
+%{_libexecdir}/mapplauncherd/booster-qtquick2
 %{_libdir}/libmdeclarativecache5.so.*
+%{_libdir}/systemd/user/booster-qt5.service
+%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt5.service
+%{_libdir}/systemd/user/booster-qtquick2.service
+%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qtquick2.service
 # >> files
 # << files
 

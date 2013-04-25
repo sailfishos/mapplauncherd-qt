@@ -37,35 +37,12 @@ public:
     //! Destructor.
     virtual ~QDeclarativeBooster() {};
 
-    /*!
-     * \brief Return the socket name common to all QDeclarativeBooster objects.
-     * \return Path to the socket file.
-     */
-    static const string & socketName();
-
-    //! Return the process name to be used when booster is not
-    //! yet transformed into a running application
-    static const string & temporaryProcessName();
-
-    //! \reimp
-    virtual const string & boosterTemporaryProcessName() const;
-
-    //! \reimp
-    virtual char boosterType() const { return type(); }
-
-    /*!
-     * \brief Return a unique character ('d') represtenting the type of QDeclarativeBoosters.
-     * \return Type character.
-     */
-    static char type();
+    virtual const string & boosterType() const;
 
     //! \reimp
     virtual bool preload();
 
 protected:
-
-    //! \reimp
-    virtual const string & socketId() const;
 
     //! \reimp
     virtual bool receiveDataFromInvoker(int socketFd);
@@ -81,11 +58,7 @@ private:
     //! Disable assignment operator
     QDeclarativeBooster & operator= (const QDeclarativeBooster & r);
 
-    static const string m_socketId;
-
-    //! Process name to be used when booster is not
-    //! yet transformed into a running application
-    static const string m_temporaryProcessName;
+    static const string m_boosterType;
 
 #ifdef UNIT_TEST
     friend class Ut_DBooster;

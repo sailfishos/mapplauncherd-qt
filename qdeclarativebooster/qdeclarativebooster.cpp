@@ -20,41 +20,19 @@
 #include "qdeclarativebooster.h"
 #include "mdeclarativecache.h"
 #include "connection.h"
+#include "daemon.h"
 #include <QtGlobal>
 #include <QFileInfo>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#define BOOSTER_NAME "d"
+const string QDeclarativeBooster::m_boosterType = "qml";
 #else
-#define BOOSTER_NAME "D"
+const string QDeclarativeBooster::m_boosterType = "qtquick2";
 #endif
 
-const string QDeclarativeBooster::m_socketId = "/tmp/boost" BOOSTER_NAME;
-const string QDeclarativeBooster::m_temporaryProcessName = "booster-" BOOSTER_NAME;
-
-const string & QDeclarativeBooster::socketId() const
+const string & QDeclarativeBooster::boosterType() const
 {
-    return m_socketId;
-}
-
-const string & QDeclarativeBooster::socketName()
-{
-    return m_socketId;
-}
-
-const string & QDeclarativeBooster::temporaryProcessName()
-{
-    return m_temporaryProcessName;
-}
-
-const string & QDeclarativeBooster::boosterTemporaryProcessName() const
-{
-    return temporaryProcessName();
-}
-
-char QDeclarativeBooster::type()
-{
-    return BOOSTER_NAME[0];
+    return m_boosterType;
 }
 
 bool QDeclarativeBooster::preload()
@@ -117,3 +95,12 @@ void QDeclarativeBooster::preinit()
     // char* app_class = qstrdup(appClass.toLatin1().data());
     // QApplication::setAppClass(app_class);
 }
+
+int main(int argc, char **argv)
+{
+    QDeclarativeBooster *booster = new QDeclarativeBooster;
+
+    Daemon d(argc, argv);
+    d.run(booster);
+}
+
