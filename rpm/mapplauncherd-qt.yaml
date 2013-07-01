@@ -18,15 +18,16 @@ PkgBR:
     - mapplauncherd-devel >= 4.1.0
 Requires:
     - mapplauncherd >= 4.1.0
+    - systemd-user-session-targets
 Builder: qmake
 Files:
     - "%{_libexecdir}/mapplauncherd/booster-qt4"
     - "%{_libexecdir}/mapplauncherd/booster-qml"
     - "%{_libdir}/libmdeclarativecache.so.*"
     - "%{_libdir}/systemd/user/booster-qt4.service"
-    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt4.service"
+    - "%{_libdir}/systemd/user/user-session.target.wants/booster-qt4.service"
     - "%{_libdir}/systemd/user/booster-qml.service"
-    - "%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qml.service"
+    - "%{_libdir}/systemd/user/user-session.target.wants/booster-qml.service"
 
 SubPackages:
     - Name: devel
