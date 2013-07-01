@@ -17,6 +17,7 @@ URL:        https://github.com/nemomobile/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  mapplauncherd-qt5.yaml
 Requires:   mapplauncherd >= 4.1.0
+Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(Qt5Core)
@@ -65,8 +66,8 @@ rm -rf %{buildroot}
 %qmake_install
 
 # >> install post
-mkdir %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants || true
-ln -s ../booster-qt5.service ../booster-qtquick2.service %{buildroot}/usr/lib/systemd/user/mapplauncherd.target.wants/
+mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
+ln -s ../booster-qt5.service ../booster-qtquick2.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 # << install post
 
 %post -p /sbin/ldconfig
@@ -79,9 +80,9 @@ ln -s ../booster-qt5.service ../booster-qtquick2.service %{buildroot}/usr/lib/sy
 %{_libexecdir}/mapplauncherd/booster-qtquick2
 %{_libdir}/libmdeclarativecache5.so.*
 %{_libdir}/systemd/user/booster-qt5.service
-%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qt5.service
+%{_libdir}/systemd/user/user-session.target.wants/booster-qt5.service
 %{_libdir}/systemd/user/booster-qtquick2.service
-%{_libdir}/systemd/user/mapplauncherd.target.wants/booster-qtquick2.service
+%{_libdir}/systemd/user/user-session.target.wants/booster-qtquick2.service
 # >> files
 # << files
 
