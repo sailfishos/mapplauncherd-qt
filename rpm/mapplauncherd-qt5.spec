@@ -20,6 +20,8 @@ Requires:   mapplauncherd >= 4.1.0
 Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+Requires(pre):  shadow-utils
+BuildRequires:  pkgconfig(libshadowutils)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Concurrent)
@@ -70,14 +72,17 @@ mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
 ln -s ../booster-qt5.service ../booster-qtquick2.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 # << install post
 
+%pre
+groupadd -rf privileged
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%{_libexecdir}/mapplauncherd/booster-qt5
-%{_libexecdir}/mapplauncherd/booster-qtquick2
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt5
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qtquick2
 %{_libdir}/libmdeclarativecache5.so.*
 %{_libdir}/systemd/user/booster-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-qt5.service

@@ -20,6 +20,8 @@ Requires:   mapplauncherd >= 4.1.0
 Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+Requires(pre):  shadow-utils
+BuildRequires:  pkgconfig(libshadowutils)
 BuildRequires:  pkgconfig(QtCore)
 BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtDeclarative)
@@ -68,14 +70,17 @@ mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
 ln -s ../booster-qt4.service ../booster-qml.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 # << install post
 
+%pre
+groupadd -rf privileged
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%{_libexecdir}/mapplauncherd/booster-qt4
-%{_libexecdir}/mapplauncherd/booster-qml
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt4
+%attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qml
 %{_libdir}/libmdeclarativecache.so.*
 %{_libdir}/systemd/user/booster-qt4.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-qt4.service
