@@ -1,0 +1,10 @@
+[Unit]
+Description=Signal booster that boot is over
+Requires=booster-qt5.service
+After=booster-qt5.service post-user-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "/bin/kill -SIGUSR1 `pgrep booster-qt5`"
+

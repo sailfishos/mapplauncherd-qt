@@ -88,6 +88,7 @@ groupadd -rf privileged
 %{_libdir}/systemd/user/user-session.target.wants/booster-qt5.service
 %{_libdir}/systemd/user/booster-qtquick2.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-qtquick2.service
+%{_libdir}/systemd/user/booster-signal.service
 # >> files
 # << files
 

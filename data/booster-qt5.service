@@ -2,10 +2,11 @@
 Description=Application launch booster for Qt5
 After=pre-user-session.target
 Requires=dbus.socket pre-user-session.target
+Wants=booster-signal.service
 
 [Service]
 Type=notify
-ExecStart=/usr/libexec/mapplauncherd/booster-qt5 --systemd
+ExecStart=/usr/libexec/mapplauncherd/booster-qt5 --systemd --boot-mode
 Restart=always
 RestartSec=1
 
