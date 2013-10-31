@@ -9,7 +9,7 @@ equals(QT_MAJOR_VERSION, 4) {
 }
 equals(QT_MAJOR_VERSION, 5) {
     pkgconfig.files = pkgconfig/qt5-boostable.pc pkgconfig/qdeclarative5-boostable.pc
-    services.files = booster-qt5.service booster-qtquick2.service booster-signal.service
+    services.files = booster-qt5.service booster-signal.service
 }
 
 pkgconfig.path = /usr/lib/pkgconfig
