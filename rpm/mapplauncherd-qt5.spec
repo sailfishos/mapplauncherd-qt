@@ -15,7 +15,6 @@ Group:      System/Daemons
 License:    LGPLv2+
 URL:        https://github.com/nemomobile/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  mapplauncherd-qt5.yaml
 Requires:   mapplauncherd >= 4.1.0
 Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
