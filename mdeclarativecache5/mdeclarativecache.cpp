@@ -17,6 +17,8 @@
 **
 ****************************************************************************/
 
+#include <unistd.h>
+
 #include <QQuickView>
 #include <QtPlugin>
 #include <QPluginLoader>
