@@ -103,6 +103,12 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         // This changes argc in QCoreApplication
         initialArgc = qMin(argc, ARGV_LIMIT);
 
+        // XXX: Call QCoreApplication::applicationFilePath() once to cache the argv[0] function-locally
+        QCoreApplication::applicationFilePath();
+
+        // XXX: Now we don't enter clearApplicationFilePath anymore => set it
+        QCoreApplicationPrivate::setApplicationFilePath(QFileInfo(argv[0]).canonicalFilePath());
+
         // Take application name from argv
         QString appName = QFileInfo(argv[0]).fileName();
 
