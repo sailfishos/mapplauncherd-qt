@@ -103,17 +103,18 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         // This changes argc in QCoreApplication
         initialArgc = qMin(argc, ARGV_LIMIT);
 
-        // XXX: Call QCoreApplication::applicationFilePath() once to cache the argv[0] function-locally
+        // XXX: Call QCoreApplication::applicationFilePath() once. Internally in QCoreApp::appFilePath()
+        // there is a 'static const char *procname' which we need to have cached to 'our' argv[0];
         QCoreApplication::applicationFilePath();
 
-        // XXX: Now we don't enter clearApplicationFilePath anymore => set it
-        QCoreApplicationPrivate::setApplicationFilePath(QFileInfo(argv[0]).canonicalFilePath());
+        // Now override appFilePath and appDirPath. These are cached individually, so we
+        // need to reset both.
+        QFileInfo appFileInfo(argv[0]);
+        QCoreApplicationPrivate::setApplicationFilePath(appFileInfo.canonicalFilePath());
+        qap->cachedApplicationDirPath = appFileInfo.canonicalPath();
 
-        // Take application name from argv
-        QString appName = QFileInfo(argv[0]).fileName();
-
-        // Set object name
-        qApp->setObjectName(appName);
+        // Set object name to the name of the binary.
+        qApp->setObjectName(appFileInfo.fileName());
 
         bool loadTestabilityArg = false;
         const char* testabilityArg = "-testability";
@@ -130,7 +131,7 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         if (loadTestabilityEnv || loadTestabilityArg)
             testabilityInit();
 
-        if (cachePopulated) 
+        if (cachePopulated)
         {
             // In Qt 4.7, QCoreApplication::applicationDirPath() and
             // QCoreApplication::applicationFilePath() look up the paths in /proc,
