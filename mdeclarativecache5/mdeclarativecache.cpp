@@ -26,6 +26,8 @@
 #include <QDir>
 
 #include <private/qcoreapplication_p.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "mdeclarativecache.h"
 #include "mdeclarativecache_p.h"
