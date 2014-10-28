@@ -26,6 +26,13 @@ BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5Sql)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(libffi)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  mapplauncherd-devel >= 4.1.0
 
 %description
@@ -51,6 +58,7 @@ using mapplauncherd.
 %build
 # >> build pre
 # << build pre
+unset LD_AS_NEEDED
 
 %qmake5 
 
