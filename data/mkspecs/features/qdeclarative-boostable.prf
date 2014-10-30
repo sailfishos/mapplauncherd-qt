@@ -3,6 +3,5 @@
 
 CONFIG += link_pkgconfig
 
-equals(QT_MAJOR_VERSION, 4): PKGCONFIG += qdeclarative-boostable
-equals(QT_MAJOR_VERSION, 5): PKGCONFIG += qdeclarative5-boostable
+PKGCONFIG += qdeclarative5-boostable
 

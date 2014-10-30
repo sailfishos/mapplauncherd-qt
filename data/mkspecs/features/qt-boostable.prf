@@ -3,5 +3,4 @@
 
 CONFIG += link_pkgconfig
 
-equals(QT_MAJOR_VERSION, 4): PKGCONFIG += qt-boostable
-equals(QT_MAJOR_VERSION, 5): PKGCONFIG += qt5-boostable
+PKGCONFIG += qt5-boostable
