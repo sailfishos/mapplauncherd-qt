@@ -55,7 +55,7 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %qmake5_install
 
-mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants || true
+mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants
 ln -s ../booster-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
 
 %pre
@@ -71,7 +71,7 @@ groupadd -rf privileged
 %{_libdir}/libmdeclarativecache5.so.*
 %{_libdir}/systemd/user/booster-qt5.service
 %{_libdir}/systemd/user/user-session.target.wants/booster-qt5.service
-%{_libdir}/systemd/user/booster-signal.service
+%{_libdir}/systemd/user/booster-qt5-signal.service
 
 %files devel
 %defattr(-,root,root,-)

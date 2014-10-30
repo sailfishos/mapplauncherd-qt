@@ -1,8 +1,8 @@
 [Unit]
 Description=Application launch booster for Qt5
-After=pre-user-session.target
-Requires=dbus.socket pre-user-session.target
-Wants=booster-signal.service
+After=dbus.socket
+Requires=dbus.socket
+Wants=booster-qt5-signal.service
 
 [Service]
 Type=notify
