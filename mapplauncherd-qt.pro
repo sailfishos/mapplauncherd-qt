@@ -3,10 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS = qtbooster \
     data
 
-equals(QT_MAJOR_VERSION, 4) {
-    SUBDIRS += mdeclarativecache
-}
+SUBDIRS += mdeclarativecache5
 
-equals(QT_MAJOR_VERSION, 5) {
-    SUBDIRS += mdeclarativecache5
-}
