@@ -117,8 +117,9 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         QCoreApplicationPrivate::setApplicationFilePath(appFileInfo.canonicalFilePath());
         qap->cachedApplicationDirPath = appFileInfo.canonicalPath();
 
-        // Set object name to the name of the binary.
+        // Set object name and application name to the name of the binary.
         qApp->setObjectName(appFileInfo.fileName());
+        qApplicationInstance->setApplicationName(appFileInfo.fileName());
 
         bool loadTestabilityArg = false;
         const char* testabilityArg = "-testability";
