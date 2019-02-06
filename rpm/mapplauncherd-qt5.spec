@@ -46,8 +46,7 @@ using mapplauncherd.
 
 %build
 unset LD_AS_NEEDED
-
-%qmake5 
+%qmake5 VERSION=`echo %{version} | sed 's/+.*//'`
 
 make %{?_smp_mflags}
 
@@ -79,4 +78,3 @@ groupadd -rf privileged
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libmdeclarativecache5.so
 %{_includedir}/mdeclarativecache5/
-
