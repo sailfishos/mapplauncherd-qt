@@ -9,4 +9,7 @@ services.files = booster-qt5.service booster-qt5-signal.service
 pkgconfig.path = /usr/lib/pkgconfig
 services.path = /usr/lib/systemd/user/
 
+# Apply version to the pkgconfig files before installing
+pkgconfig.commands = 'sed -i "s/Version:.*/Version: $$VERSION/" pkgconfig/*.pc'
+
 INSTALLS += mkspecs pkgconfig services
