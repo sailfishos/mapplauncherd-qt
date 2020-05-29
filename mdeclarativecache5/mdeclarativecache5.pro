@@ -3,10 +3,10 @@ TARGET = mdeclarativecache5
 VERSION = 0.0.0
 QT += quick core-private 
 
-target.path = /usr/lib/
+target.path = $$[QT_INSTALL_LIBS]
 
 headers.files = MDeclarativeCache mdeclarativecache.h
-headers.path = /usr/include/mdeclarativecache5/
+headers.path = $$[QT_INSTALL_PREFIX]/include/mdeclarativecache5/
 
 INSTALLS += target headers
 
