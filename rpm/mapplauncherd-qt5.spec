@@ -2,7 +2,6 @@ Name:       mapplauncherd-qt5
 Summary:    Application launch boosters for Qt5
 Version:    1.0.0
 Release:    1
-Group:      System/Daemons
 License:    LGPLv2+
 URL:        https://github.com/nemomobile/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
@@ -26,6 +25,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  mapplauncherd-devel >= 4.1.0
+BuildRequires:  systemd
 
 %description
 Application launch boosters for Qt5
@@ -33,7 +33,6 @@ Application launch boosters for Qt5
 
 %package devel
 Summary:    Development files for launchable applications
-Group:      Development/Tools
 Requires:   %{name} = %{version}-%{release}
 
 %description devel
@@ -54,8 +53,8 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 %qmake5_install
 
-mkdir -p %{buildroot}/usr/lib/systemd/user/user-session.target.wants
-ln -s ../booster-qt5.service %{buildroot}/usr/lib/systemd/user/user-session.target.wants/
+mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants
+ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 
 %pre
 groupadd -rf privileged
@@ -68,9 +67,9 @@ groupadd -rf privileged
 %defattr(-,root,root,-)
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt5
 %{_libdir}/libmdeclarativecache5.so.*
-%{_libdir}/systemd/user/booster-qt5.service
-%{_libdir}/systemd/user/user-session.target.wants/booster-qt5.service
-%{_libdir}/systemd/user/booster-qt5-signal.service
+%{_userunitdir}/booster-qt5.service
+%{_userunitdir}/user-session.target.wants/booster-qt5.service
+%{_userunitdir}/booster-qt5-signal.service
 
 %files devel
 %defattr(-,root,root,-)
