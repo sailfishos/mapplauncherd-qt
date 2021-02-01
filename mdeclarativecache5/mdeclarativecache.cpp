@@ -81,8 +81,11 @@ void MDeclarativeCachePrivate::populate()
     }
 
     qQuickViewInstance = new QQuickView();
-
 }
+
+#ifdef REINIT_LOGGING
+void qt_reinit_logging(); // Defined in qtlogging.cpp
+#endif
 
 QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
 {
@@ -120,6 +123,11 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         // Set object name and application name to the name of the binary.
         qApp->setObjectName(appFileInfo.fileName());
         qApplicationInstance->setApplicationName(appFileInfo.fileName());
+
+#ifdef REINIT_LOGGING
+        // Reinitialize logging from new variables
+        qt_reinit_logging();
+#endif
 
         bool loadTestabilityArg = false;
         const char* testabilityArg = "-testability";

@@ -1,3 +1,4 @@
+%bcond_with reinit_logging
 Name:       mapplauncherd-qt5
 Summary:    Application launch boosters for Qt5
 Version:    1.0.0
@@ -45,8 +46,8 @@ using mapplauncherd.
 
 %build
 unset LD_AS_NEEDED
-%qmake5 VERSION=`echo %{version} | sed 's/+.*//'`
-
+%qmake5 VERSION=`echo %{version} | sed 's/+.*//'` \
+    %{?with_reinit_logging:"DEFINES+=REINIT_LOGGING"}
 make %{?_smp_mflags}
 
 %install
