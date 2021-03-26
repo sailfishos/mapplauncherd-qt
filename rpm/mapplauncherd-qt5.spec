@@ -9,8 +9,9 @@ Source0:    %{name}-%{version}.tar.bz2
 Requires:   mapplauncherd >= 4.1.0
 Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
+Requires(post): /usr/sbin/setcap
 Requires(postun): /sbin/ldconfig
-Requires(pre):  shadow-utils
+Requires(pre):  sailfish-setup
 BuildRequires:  pkgconfig(libshadowutils)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
@@ -29,7 +30,7 @@ BuildRequires:  mapplauncherd-devel >= 4.1.0
 BuildRequires:  systemd
 
 %description
-Application launch boosters for Qt5
+%{summary}.
 
 
 %package devel
@@ -57,10 +58,9 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants
 ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 
-%pre
-groupadd -rf privileged
-
-%post -p /sbin/ldconfig
+%post
+/sbin/ldconfig
+/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-qt5 || :
 
 %postun -p /sbin/ldconfig
 
