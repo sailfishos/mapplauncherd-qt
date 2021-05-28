@@ -6,5 +6,5 @@ After=booster-qt5.service post-user-session.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/bin/killall -SIGUSR1 booster-qt5
+ExecStart=-/usr/bin/killall -SIGUSR1 booster-qt5
 
