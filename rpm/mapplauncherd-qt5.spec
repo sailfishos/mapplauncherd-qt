@@ -60,7 +60,6 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 
 %post
 /sbin/ldconfig
-/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-qt5 || :
 
 %postun -p /sbin/ldconfig
 
