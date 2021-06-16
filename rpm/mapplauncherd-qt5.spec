@@ -1,7 +1,7 @@
 %bcond_with reinit_logging
 Name:       mapplauncherd-qt5
 Summary:    Application launch boosters for Qt5
-Version:    1.0.0
+Version:    1.1.18
 Release:    1
 License:    LGPLv2+
 URL:        https://github.com/nemomobile/mapplauncherd-qt/
