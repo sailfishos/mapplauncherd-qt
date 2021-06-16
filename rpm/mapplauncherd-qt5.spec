@@ -60,7 +60,6 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 
 %post
 /sbin/ldconfig
-/usr/sbin/setcap cap_sys_ptrace+pe %{_libexecdir}/mapplauncherd/booster-qt5 || :
 
 %postun -p /sbin/ldconfig
 
@@ -69,6 +68,7 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt5
 %{_libdir}/libmdeclarativecache5.so.*
 %{_userunitdir}/booster-qt5.service
+%{_userunitdir}/booster-qt5@.service
 %{_userunitdir}/user-session.target.wants/booster-qt5.service
 %{_userunitdir}/booster-qt5-signal.service
 
