@@ -1,7 +1,7 @@
 %bcond_with reinit_logging
 Name:       mapplauncherd-qt5
 Summary:    Application launch boosters for Qt5
-Version:    1.1.18
+Version:    1.1.19
 Release:    1
 License:    LGPLv2+
 URL:        https://github.com/sailfishos/mapplauncherd-qt/
