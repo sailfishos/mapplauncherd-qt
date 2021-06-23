@@ -4,9 +4,9 @@ Summary:    Application launch boosters for Qt5
 Version:    1.1.18
 Release:    1
 License:    LGPLv2+
-URL:        https://github.com/nemomobile/mapplauncherd-qt/
+URL:        https://github.com/sailfishos/mapplauncherd-qt/
 Source0:    %{name}-%{version}.tar.bz2
-Requires:   mapplauncherd >= 4.1.0
+Requires:   mapplauncherd >= 4.2.3
 Requires:   systemd-user-session-targets
 Requires(post): /sbin/ldconfig
 Requires(post): /usr/sbin/setcap
@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  mapplauncherd-devel >= 4.1.0
+BuildRequires:  pkgconfig(applauncherd) >= 4.2.3
 BuildRequires:  systemd
 
 %description
@@ -43,23 +43,21 @@ using mapplauncherd.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 unset LD_AS_NEEDED
 %qmake5 VERSION=`echo %{version} | sed 's/+.*//'` \
     %{?with_reinit_logging:"DEFINES+=REINIT_LOGGING"}
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
 %qmake5_install
 
 mkdir -p %{buildroot}%{_userunitdir}/user-session.target.wants
 ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wants/
 
-%post
-/sbin/ldconfig
+%post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
