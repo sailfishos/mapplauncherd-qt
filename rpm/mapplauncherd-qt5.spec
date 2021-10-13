@@ -1,7 +1,7 @@
 %bcond_with reinit_logging
 Name:       mapplauncherd-qt5
 Summary:    Application launch boosters for Qt5
-Version:    1.1.19
+Version:    1.1.21
 Release:    1
 License:    LGPLv2+
 URL:        https://github.com/sailfishos/mapplauncherd-qt/
@@ -27,7 +27,7 @@ BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(applauncherd) >= 4.2.3
-BuildRequires:  systemd
+BuildRequires:  pkgconfig(systemd)
 
 %description
 %{summary}.
