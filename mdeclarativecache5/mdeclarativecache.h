@@ -34,12 +34,8 @@ class QQuickView;
 class MDeclarativeCache
 {
 public:
-
-    //! Constructor.
-    MDeclarativeCache() {};
-
-    //! Destructor.
-    virtual ~MDeclarativeCache() {};
+    MDeclarativeCache() {}
+    virtual ~MDeclarativeCache() {}
 
     //! Populate cache with QGuiApplication and QQuickView
     /*!
@@ -48,7 +44,7 @@ public:
      */
     static QQuickView *populate();
 
-    //! Returns QApplication instance from cache or creates a new one.
+    //! Returns QGuiApplication instance from cache or creates a new one.
     /*!
      * Ownership of the returned object is passed to the caller.
      * NOTE: This is subject to change.
@@ -81,12 +77,7 @@ protected:
     static MDeclarativeCachePrivate* const d_ptr;
 
 private:
-
-    //! Disable copy-constructor
-    MDeclarativeCache(const MDeclarativeCache & r);
-
-    //! Disable assignment operator
-    MDeclarativeCache & operator= (const MDeclarativeCache & r);
+    Q_DISABLE_COPY(MDeclarativeCache)
 
 #ifdef UNIT_TEST
     friend class Ut_MDeclarativeCache;
