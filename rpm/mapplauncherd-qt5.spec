@@ -63,6 +63,7 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 
 %files
 %defattr(-,root,root,-)
+%license LICENSE.LGPL21
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt5
 %{_libdir}/libmdeclarativecache5.so.*
 %{_userunitdir}/booster-qt5.service

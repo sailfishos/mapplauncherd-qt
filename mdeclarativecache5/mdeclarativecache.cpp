@@ -80,7 +80,7 @@ void MDeclarativeCachePrivate::populate()
         qApplicationInstance = new QGuiApplication(initialArgc, initialArgv);
     }
 
-    qQuickViewInstance = new QQuickView();
+    qQuickViewInstance = new QQuickView;
 }
 
 #ifdef REINIT_LOGGING
@@ -89,21 +89,16 @@ void qt_reinit_logging(); // Defined in qtlogging.cpp
 
 QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
 {
-    if (qApplicationInstance == 0) 
-    {
+    if (qApplicationInstance == 0) {
         qApplicationInstance = new QGuiApplication(argc, argv);
-    } 
-    else 
-    {
+    } else {
         QCoreApplicationPrivate *qap = static_cast<QCoreApplicationPrivate*>(QObjectPrivate::get(qApp));
-        if (argc > ARGV_LIMIT) 
-        {
+        if (argc > ARGV_LIMIT) {
             qWarning("MDeclarativeCache: QCoreApplication::arguments() will not contain all arguments.");
         }
         
         // Copy arguments to QCoreApplication 
-        for (int i = 0; i < qMin(argc, ARGV_LIMIT); i++) 
-        {
+        for (int i = 0; i < qMin(argc, ARGV_LIMIT); i++) {
             qap->argv[i] = argv[i];
         }
         
@@ -131,10 +126,8 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
 
         bool loadTestabilityArg = false;
         const char* testabilityArg = "-testability";
-        for (int i = 0; i < argc; i++) 
-        {
-            if (strcmp(argv[i], testabilityArg) == 0)
-            {
+        for (int i = 0; i < argc; i++)  {
+            if (strcmp(argv[i], testabilityArg) == 0) {
                 loadTestabilityArg = true;
                 break;
             }
@@ -144,8 +137,7 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         if (loadTestabilityEnv || loadTestabilityArg)
             testabilityInit();
 
-        if (cachePopulated)
-        {
+        if (cachePopulated) {
             // In Qt 4.7, QCoreApplication::applicationDirPath() and
             // QCoreApplication::applicationFilePath() look up the paths in /proc,
             // which does not work when the booster is used. As a workaround, we
@@ -175,12 +167,10 @@ void MDeclarativeCachePrivate::testabilityInit()
 
     QObject *plugin = loader.instance();
     
-    if (plugin) 
-    {
+    if (plugin)  {
         testabilityInterface = qobject_cast<TestabilityInterface *>(plugin);
 
-        if (testabilityInterface) 
-        {
+        if (testabilityInterface)  {
             testabilityInterface->Initialize();
         }
     }
@@ -193,8 +183,9 @@ QQuickView *MDeclarativeCachePrivate::qQuickView()
     if (qQuickViewInstance != 0) {
         returnValue = qQuickViewInstance;
         qQuickViewInstance = 0;
-    } else
+    } else {
         returnValue = new QQuickView;
+    }
 
     return returnValue;
 }

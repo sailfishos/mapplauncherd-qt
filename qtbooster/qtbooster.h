@@ -29,18 +29,16 @@
 class QtBooster : public Booster
 {
 public:
-
     //! Constructor.
-    QtBooster() {};
+    QtBooster() {}
 
     //! Destructor.
-    virtual ~QtBooster() {};
+    virtual ~QtBooster() {}
 
     //! \reimp
     virtual const string & boosterType() const;
 
 protected:
-
     //! \reimp
     virtual bool preload();
 
