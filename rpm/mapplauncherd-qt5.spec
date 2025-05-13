@@ -62,7 +62,6 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %license LICENSE.LGPL21
 %attr(2755, root, privileged) %{_libexecdir}/mapplauncherd/booster-qt5
 %{_libdir}/libmdeclarativecache5.so.*
@@ -72,7 +71,6 @@ ln -s ../booster-qt5.service %{buildroot}%{_userunitdir}/user-session.target.wan
 %{_userunitdir}/booster-qt5-signal.service
 
 %files devel
-%defattr(-,root,root,-)
 %{_datadir}/qt5/mkspecs/features/*.prf
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/libmdeclarativecache5.so
