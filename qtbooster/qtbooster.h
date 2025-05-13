@@ -36,14 +36,13 @@ public:
     virtual ~QtBooster() {}
 
     //! \reimp
-    virtual const string & boosterType() const;
+    const string & boosterType() const override;
 
 protected:
     //! \reimp
     virtual bool preload();
 
 private:
-
     //! Disable copy-constructor
     QtBooster(const QtBooster & r);
 

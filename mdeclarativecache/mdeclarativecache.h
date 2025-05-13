@@ -73,7 +73,6 @@ public:
     static QString applicationFilePath() __attribute__ ((deprecated));
 
 protected:
-
     static MDeclarativeCachePrivate* const d_ptr;
 
 private:

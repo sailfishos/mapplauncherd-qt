@@ -32,6 +32,7 @@ class MDeclarativeCachePrivate
 public:
     MDeclarativeCachePrivate();
     virtual ~MDeclarativeCachePrivate();
+
     void populate();
     QGuiApplication *qApplication(int &argc, char **argv);
     QQuickView *qQuickView();
@@ -53,6 +54,5 @@ public:
     friend class Ut_MDeclarativeCache;
 #endif
 };
-
 
 #endif // MDECLARATIVECACHE_P_H

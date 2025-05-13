@@ -17,8 +17,6 @@
 **
 ****************************************************************************/
 
-#include <unistd.h>
-
 #include <QQuickView>
 #include <QtPlugin>
 #include <QPluginLoader>
@@ -37,15 +35,15 @@
 MDeclarativeCachePrivate * const MDeclarativeCache::d_ptr = new MDeclarativeCachePrivate;
 const int MDeclarativeCachePrivate::ARGV_LIMIT = 32;
 
-MDeclarativeCachePrivate::MDeclarativeCachePrivate() :
-    qApplicationInstance(0),
-    qQuickViewInstance(0),
-    initialArgc(ARGV_LIMIT),
-    initialArgv(new char* [initialArgc]),
-    appDirPath(QString()),
-    appFilePath(QString()),
-    cachePopulated(false),
-    testabilityInterface(0)
+MDeclarativeCachePrivate::MDeclarativeCachePrivate()
+    : qApplicationInstance(0)
+    , qQuickViewInstance(0)
+    , initialArgc(ARGV_LIMIT)
+    , initialArgv(new char* [initialArgc])
+    , appDirPath(QString())
+    , appFilePath(QString())
+    , cachePopulated(false)
+    , testabilityInterface(0)
 {
 }
 
@@ -162,7 +160,7 @@ void MDeclarativeCachePrivate::testabilityInit()
     QString testabilityPluginPostfix = ".so";
     QString testabilityPlugin = "testability/libtestability";
 
-    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QDir::separator() + testabilityPlugin + testabilityPluginPostfix;
+    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath) + '/' + testabilityPlugin + testabilityPluginPostfix;
     QPluginLoader loader(testabilityPlugin.toLatin1().data());
 
     QObject *plugin = loader.instance();
@@ -175,7 +173,6 @@ void MDeclarativeCachePrivate::testabilityInit()
         }
     }
 }
-
 
 QQuickView *MDeclarativeCachePrivate::qQuickView()
 {
@@ -235,4 +232,3 @@ QString MDeclarativeCache::applicationFilePath()
 {
     return d_ptr->applicationFilePath();
 }
-

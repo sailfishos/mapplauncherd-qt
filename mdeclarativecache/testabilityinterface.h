@@ -26,13 +26,9 @@ public:
     virtual ~TestabilityInterface() {}
 
     /*!
-
       Initializes the plugin once loaded.
-
     */
     virtual void Initialize() = 0;
-
-
 };
 
 Q_DECLARE_INTERFACE(TestabilityInterface,

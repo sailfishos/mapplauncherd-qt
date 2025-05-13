@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
-SUBDIRS = qtbooster \
+SUBDIRS = \
+    qtbooster \
     data
 
 SUBDIRS += mdeclarativecache
-
