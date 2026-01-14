@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-TARGET = booster-qt5
+TARGET = booster-qt$${QT_MAJOR_VERSION}
 
 target.path = /usr/libexec/mapplauncherd/
 INSTALLS += target

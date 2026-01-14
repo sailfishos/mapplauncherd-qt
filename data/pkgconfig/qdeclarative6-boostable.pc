@@ -1,0 +1,6 @@
+Name: qdeclarative6-boostable
+Description: make application boostable by applauncherd
+Version: 
+Libs: -pie -rdynamic -lmdeclarativecache6
+Cflags: -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -I/usr/include/mdeclarativecache6
+

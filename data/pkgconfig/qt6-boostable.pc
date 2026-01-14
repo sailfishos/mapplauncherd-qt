@@ -1,4 +1,4 @@
-Name: qt5-boostable
+Name: qt6-boostable
 Description: make application boostable by applauncherd
 Version: 
 Libs: -pie -rdynamic 
