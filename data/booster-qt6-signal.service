@@ -1,0 +1,10 @@
+[Unit]
+Description=Signal booster-qt6 that boot is over
+Requires=booster-qt6.service
+After=booster-qt6.service post-user-session.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/usr/bin/systemctl --user kill --signal=SIGUSR1 --kill-who=main booster-qt6.service
+
