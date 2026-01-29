@@ -36,8 +36,6 @@ public:
     void populate();
     QGuiApplication *qApplication(int &argc, char **argv);
     QQuickView *qQuickView();
-    QString applicationDirPath();
-    QString applicationFilePath();
     void testabilityInit();
 
     static const int ARGV_LIMIT;
@@ -45,9 +43,6 @@ public:
     QQuickView *qQuickViewInstance;
     int initialArgc;
     char **initialArgv;
-    QString appDirPath;
-    QString appFilePath;
-    bool cachePopulated;
     TestabilityInterface *testabilityInterface;
 
 #ifdef UNIT_TEST

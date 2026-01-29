@@ -40,9 +40,6 @@ MDeclarativeCachePrivate::MDeclarativeCachePrivate()
     , qQuickViewInstance(0)
     , initialArgc(ARGV_LIMIT)
     , initialArgv(new char* [initialArgc])
-    , appDirPath(QString())
-    , appFilePath(QString())
-    , cachePopulated(false)
     , testabilityInterface(0)
 {
 }
@@ -55,9 +52,6 @@ MDeclarativeCachePrivate::~MDeclarativeCachePrivate()
 
 void MDeclarativeCachePrivate::populate()
 {
-    // Record the fact that the cache has been populated
-    cachePopulated = true;
-    
     static const char *const emptyString = "";
     static const QString appNameFormat = "mdeclarativecache_pre_initialized_qapplication-%1";
     static QByteArray appName;
@@ -134,16 +128,6 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         bool loadTestabilityEnv = !qgetenv("QT_LOAD_TESTABILITY").isNull();
         if (loadTestabilityEnv || loadTestabilityArg)
             testabilityInit();
-
-        if (cachePopulated) {
-            // In Qt 4.7, QCoreApplication::applicationDirPath() and
-            // QCoreApplication::applicationFilePath() look up the paths in /proc,
-            // which does not work when the booster is used. As a workaround, we
-            // use argv[0] to provide the correct values in the cache class.
-            appFilePath = QString(argv[0]);
-            appDirPath = QString(argv[0]);
-            appDirPath.chop(appDirPath.size() - appDirPath.lastIndexOf("/"));
-        }
     }
 
 #ifdef HAVE_PATH_REINIT
@@ -187,26 +171,6 @@ QQuickView *MDeclarativeCachePrivate::qQuickView()
     return returnValue;
 }
 
-QString MDeclarativeCachePrivate::applicationDirPath()
-{
-    if (cachePopulated) {
-        // In the booster case use the workaround
-        return appDirPath;
-    } else {
-        return QCoreApplication::applicationDirPath();
-    }
-}
-
-QString MDeclarativeCachePrivate::applicationFilePath()
-{
-    if (cachePopulated) {
-        // In the booster case use the workaround
-        return appFilePath;
-    } else {
-        return QCoreApplication::applicationFilePath();
-    }
-}
-
 QQuickView *MDeclarativeCache::populate()
 {
     d_ptr->populate();
@@ -221,14 +185,4 @@ QGuiApplication *MDeclarativeCache::qApplication(int &argc, char **argv)
 QQuickView *MDeclarativeCache::qQuickView()
 {
     return d_ptr->qQuickView();
-}
-
-QString MDeclarativeCache::applicationDirPath()
-{
-    return d_ptr->applicationDirPath();
-}
-
-QString MDeclarativeCache::applicationFilePath()
-{
-    return d_ptr->applicationFilePath();
 }
