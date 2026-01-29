@@ -17,8 +17,6 @@
 **
 ****************************************************************************/
 
-#include <unistd.h>
-
 #include <QQuickView>
 #include <QtPlugin>
 #include <QPluginLoader>
@@ -37,15 +35,12 @@
 MDeclarativeCachePrivate * const MDeclarativeCache::d_ptr = new MDeclarativeCachePrivate;
 const int MDeclarativeCachePrivate::ARGV_LIMIT = 32;
 
-MDeclarativeCachePrivate::MDeclarativeCachePrivate() :
-    qApplicationInstance(0),
-    qQuickViewInstance(0),
-    initialArgc(ARGV_LIMIT),
-    initialArgv(new char* [initialArgc]),
-    appDirPath(QString()),
-    appFilePath(QString()),
-    cachePopulated(false),
-    testabilityInterface(0)
+MDeclarativeCachePrivate::MDeclarativeCachePrivate()
+    : qApplicationInstance(0)
+    , qQuickViewInstance(0)
+    , initialArgc(ARGV_LIMIT)
+    , initialArgv(new char* [initialArgc])
+    , testabilityInterface(0)
 {
 }
 
@@ -57,9 +52,6 @@ MDeclarativeCachePrivate::~MDeclarativeCachePrivate()
 
 void MDeclarativeCachePrivate::populate()
 {
-    // Record the fact that the cache has been populated
-    cachePopulated = true;
-    
     static const char *const emptyString = "";
     static const QString appNameFormat = "mdeclarativecache_pre_initialized_qapplication-%1";
     static QByteArray appName;
@@ -136,22 +128,7 @@ QGuiApplication *MDeclarativeCachePrivate::qApplication(int &argc, char **argv)
         bool loadTestabilityEnv = !qgetenv("QT_LOAD_TESTABILITY").isNull();
         if (loadTestabilityEnv || loadTestabilityArg)
             testabilityInit();
-
-        if (cachePopulated) {
-            // In Qt 4.7, QCoreApplication::applicationDirPath() and
-            // QCoreApplication::applicationFilePath() look up the paths in /proc,
-            // which does not work when the booster is used. As a workaround, we
-            // use argv[0] to provide the correct values in the cache class.
-            appFilePath = QString(argv[0]);
-            appDirPath = QString(argv[0]);
-            appDirPath.chop(appDirPath.size() - appDirPath.lastIndexOf("/"));
-        }
     }
-
-#ifdef HAVE_PATH_REINIT
-    // Set the magic attribute so that paths are reinitialized
-    qApplicationInstance->setAttribute(Qt::AA_LinuxReinitPathsFromArgv0, true);
-#endif
 
     return qApplicationInstance;
 }
@@ -162,7 +139,7 @@ void MDeclarativeCachePrivate::testabilityInit()
     QString testabilityPluginPostfix = ".so";
     QString testabilityPlugin = "testability/libtestability";
 
-    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath) + QDir::separator() + testabilityPlugin + testabilityPluginPostfix;
+    testabilityPlugin = QLibraryInfo::location(QLibraryInfo::PluginsPath) + '/' + testabilityPlugin + testabilityPluginPostfix;
     QPluginLoader loader(testabilityPlugin.toLatin1().data());
 
     QObject *plugin = loader.instance();
@@ -176,7 +153,6 @@ void MDeclarativeCachePrivate::testabilityInit()
     }
 }
 
-
 QQuickView *MDeclarativeCachePrivate::qQuickView()
 {
     QQuickView *returnValue = 0;
@@ -188,26 +164,6 @@ QQuickView *MDeclarativeCachePrivate::qQuickView()
     }
 
     return returnValue;
-}
-
-QString MDeclarativeCachePrivate::applicationDirPath()
-{
-    if (cachePopulated) {
-        // In the booster case use the workaround
-        return appDirPath;
-    } else {
-        return QCoreApplication::applicationDirPath();
-    }
-}
-
-QString MDeclarativeCachePrivate::applicationFilePath()
-{
-    if (cachePopulated) {
-        // In the booster case use the workaround
-        return appFilePath;
-    } else {
-        return QCoreApplication::applicationFilePath();
-    }
 }
 
 QQuickView *MDeclarativeCache::populate()
@@ -225,14 +181,3 @@ QQuickView *MDeclarativeCache::qQuickView()
 {
     return d_ptr->qQuickView();
 }
-
-QString MDeclarativeCache::applicationDirPath()
-{
-    return d_ptr->applicationDirPath();
-}
-
-QString MDeclarativeCache::applicationFilePath()
-{
-    return d_ptr->applicationFilePath();
-}
-

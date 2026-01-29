@@ -12,7 +12,7 @@ INSTALLS += target headers
 
 SOURCES += mdeclarativecache.cpp
 
-HEADERS += mdeclarativecache.h \
+HEADERS += \
+    mdeclarativecache.h \
     mdeclarativecache_p.h \
     testabilityinterface.h
-

@@ -19,9 +19,14 @@
 
 #include "qtbooster.h"
 #include "daemon.h"
+
 #include <QtGlobal>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+const string QtBooster::m_boosterType = "qt6";
+#else
 const string QtBooster::m_boosterType = "qt5";
+#endif
 
 const string & QtBooster::boosterType() const
 {
@@ -40,4 +45,3 @@ int main(int argc, char **argv)
     Daemon d(argc, argv);
     d.run(booster);
 }
-
